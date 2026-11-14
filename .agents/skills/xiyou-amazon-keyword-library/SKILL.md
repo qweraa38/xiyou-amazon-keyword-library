@@ -47,12 +47,16 @@ Read references/endpoint-matrix.md before making calls when the tool schema or r
 
 Use the spreadsheet skill and @oai/artifact-tool for authoring. Before the first create/edit operation, run the current runtime's mark_artifact_operation_started.mjs once with --operation-kind create --expected-output-count 1 --output-format xlsx. Recalculate before checks and export.
 
+When an established 西柚词库 workbook or the user's prior template exists, preserve its sheet order, sheet names, header positions, column meanings, freeze panes, table style, and navigation. Do not replace the legacy layout with a different summary-only design. Every non-empty data block that had filtering in the reference workbook must remain an Excel Table with a native `autoFilter`/filter button after export; verify the exported XLSX table XML or an equivalent workbook inspection rather than relying only on the authoring preview. Empty historical-result sheets may retain the header and an explicit `0 行返回` note without inventing rows.
+
 At minimum, the workbook should contain:
 
 - 关键词总览: ASIN input/dedup summary, current/peak keyword counts, market-metric count, current 30-day orders, peak monthly order summary, and a current top-keyword view.
 - 关键词库_当前 and 关键词库_去年旺季: deduplicated exact phrases, coverage, total/organic/ad traffic, rank observations, market metrics, handling decision, and Chinese translation.
 - One current and one peak evidence sheet per ASIN.
 - 销量与商品信息, 流量结构, 商品全量信息, 单品关键词计数, 日级反查关键词, 关键词数量趋势, 订单趋势, 流量趋势_月度, 流量趋势_周度, 流量趋势_日度, BSR趋势, 商品信息趋势, 商品信息变更, 广告变更, 变体关系, ABA趋势_去年旺季, ABA趋势_当前, 接口返回状态, and 口径与说明 when the corresponding endpoint returned data.
+
+Trend presentation is part of the deliverable, not an optional decoration. Add native editable charts bound to auditable helper ranges on the corresponding trend sheets: at minimum order trend, keyword-count trend, monthly/weekly/daily traffic trend, BSR trend, and product price/rating trend. A sales or current-versus-peak comparison bar chart is useful when the data supports it. Keep the complete raw trend table and its filters; if a dense daily chart uses a recent 60–90 point view, label that scope and do not delete or truncate the underlying rows. Do not use static screenshots as a substitute for workbook charts.
 
 Every keyword-bearing page must place 中文释义 immediately to the right of Exact Keyword. Keep the original German phrase unchanged. Use a controlled translation map for common domain terms, and mark unresolved brand names, spelling variants, and opaque fragments as retained rather than inventing a translation.
 
@@ -64,7 +68,8 @@ The workbook should state the collection date, marketplace, current-window defin
 2. Reconcile current/peak keyword totals, market-metric totals, per-ASIN keyword counts, current orders, and prior-year monthly orders against the saved research structures.
 3. Verify that keyword translation columns are present and immediately adjacent on every keyword-bearing sheet.
 4. Scan for formula errors such as #REF!, #DIV/0!, #VALUE!, #N/A, and #NAME?.
-5. Render and inspect every worksheet. Fix clipped headers, broken tables, unreadable wrapped text, ####, missing repeated headers, and blank ABA data caused by nested batch-return structures.
-6. Export only the requested final .xlsx unless the user asks for intermediate files. In the final response, cite the final workbook once with purpose="output".
+5. Verify that non-empty reference data blocks retain native filter buttons/autoFilter after XLSX export, and verify the expected chart objects and source bindings exist.
+6. Render and inspect every worksheet, including the chart areas. Fix clipped headers, broken tables, unreadable wrapped text, ####, missing repeated headers, overlapping/blank charts, and blank ABA data caused by nested batch-return structures.
+7. Export only the requested final .xlsx unless the user asks for intermediate files. In the final response, cite the final workbook once with purpose="output".
 
 
