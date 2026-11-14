@@ -1,0 +1,5 @@
+interface:
+  display_name: "西柚关键词词库"
+  short_description: "按当前与旺季数据生成带中文释义的亚马逊关键词库"
+  default_prompt: "请用西柚调研这些 ASIN 的当前与旺季关键词、销量和全接口数据，输出带中文释义的 Excel 词库。"
+
